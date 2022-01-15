@@ -93,3 +93,17 @@ if (canvas) {
     canvas.addEventListener('click', handleCanvasClick);
     canvas.addEventListener('contextmenu', handleCM);
 }
+
+Array.from(colors).forEach(color => color.addEventListener('click', handleColorClick));
+
+if (range) {
+    range.addEventListener('input', handleRangeChange);
+}
+
+if (mode) {
+    mode.addEventListener('click', handleModeClick);
+}
+
+if (saveBtn) {
+    saveBtn.addEventListener('click', handleSaveClick);
+}
