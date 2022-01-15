@@ -1,10 +1,3 @@
-const canvas = document.querySelector('canvas');
-//const canvas = document.getElementById('jsCanvas');
-const ctx = canvas.getContext('2d');
-const colors = document.getElementsByClassName('jsColor');
-const range = document.getElementById('jsRange');
-const mode = document.getElementById('jsMode');
-const saveBtn = document.getElementById('jsSave');
 const CANVAS_SIZE = 800;
 const INITIAL_COLOR = '#2c2c2c';
 
@@ -43,7 +36,6 @@ if (canvas) {
     canvas.addEventListener('contextmenu', disableContextMenu);
     canvas.addEventListener('click', () => { if (paintMode == 'remplir') fillCanvas(); });
     canvas.addEventListener('mousedown', paintBegin);
-
 }
 
 function disableContextMenu(event) {
@@ -54,7 +46,8 @@ function fillCanvas() {
     ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 }
 
-let lastPoint = { x: 0, y: 0 };
+let startImage = null;
+let startPoint = { x: 0, y: 0 };
 
 function paintCanvas(event) {
     const x = event.offsetX;
@@ -62,6 +55,28 @@ function paintCanvas(event) {
     switch (currentTool) {
         case "brush": {
             ctx.lineTo(x, y);
+            ctx.stroke();
+        } break;
+        case "ligne": {
+            ctx.putImageData(startImage, 0, 0);
+            ctx.beginPath();
+            ctx.moveTo(startPoint.x, startPoint.y);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+        } break;
+        case "rectangle": {
+            ctx.putImageData(startImage, 0, 0);
+            const width = x - startPoint.x;
+            const height = y - startPoint.y;
+            ctx.strokeRect(startPoint.x, startPoint.y, width, height);
+        } break;
+        case "cercle": {
+            ctx.putImageData(startImage, 0, 0);
+            const width = x - startPoint.x;
+            const height = y - startPoint.y;
+            const radius = Math.sqrt(Math.pow(width/2, 2) + Math.pow(height/2, 2));
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
             ctx.stroke();
         } break;
     }
@@ -77,29 +92,16 @@ function paintBegin(event) {
     ctx.moveTo(x, y);
 
     // don't need this yet
+    startImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    startPoint = { x, y };
     switch (currentTool) {
-        case "brush": { } break;
-        case "ligne": {
-            lastPoint = { x, y };
-        } break;
-        case "rectangle": {
-            const width = 100;
-            const height = 50;
-            ctx.strokeRect(x + 0, y + 0, width, height);
-        } break;
-        case "cercle": {
-            const radius = 50;
-            ctx.beginPath();
-            ctx.arc(x, y, radius, 0, Math.PI * 2);
-            ctx.stroke();
-        } break;
-        case "ellipse": {
-            let radiusX = 100 / 2;
-            let radiusY = 50 / 2;
-            ctx.beginPath();
-            ctx.ellipse(x, y, radiusX, radiusY, Math.PI / 4, 0, Math.PI * 2);
-            ctx.stroke();
-        } break;
+        // case "ellipse": {
+        //     let radiusX = 100 / 2;
+        //     let radiusY = 50 / 2;
+        //     ctx.beginPath();
+        //     ctx.ellipse(x, y, radiusX, radiusY, Math.PI / 4, 0, Math.PI * 2);
+        //     ctx.stroke();
+        // } break;
         case "polygone": {
             getPolygon();
             ctx.stroke();
@@ -111,10 +113,7 @@ function paintEnd(event) {
     const x = event.offsetX;
     const y = event.offsetY;
     switch (currentTool) {
-        case "ligne": {
-            ctx.lineTo(x, y);
-            ctx.stroke();
-        } break;
+        case "brush": { } break;
     }
     canvas.removeEventListener('mousemove', paintCanvas);
     canvas.removeEventListener('mouseup', paintEnd);
@@ -181,8 +180,8 @@ function getPolygonPoints(x, y) {
 
     // X & Y for the X & Y point representing the radius is equal to
     // the X & Y of the bounding rubberband box
-    let radiusX = shapeBoundingBox.width;
-    let radiusY = shapeBoundingBox.height;
+    let radiusX = 100;
+    let radiusY = 50;
     // Stores all points in the polygon
     let polygonPoints = [];
 
