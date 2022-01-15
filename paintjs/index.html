@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
@@ -7,11 +6,27 @@
 <link rel="stylesheet" type="text/css" href="styles.css"/>
 </head>
 <body>
+    <div id="bundleLeft">
     <canvas id="jsCanvas" class="canvas"></canvas>
-    <div class="controls">
-        <div class="controls_range">
-            <input type="range" id="jsRange" min="0.1" max="5.0" value="2.5" step="0.1">
+    <div class="controls_range">
+            <input type="range" id="jsRange" min="0.1" max="10.0" value="3" step="0.5">
+            
         </div>
+        <div class="barre">
+            
+            <div class="outils">
+                <a class="selected" href="#" id="open" onclick="OpenImage()"><img src="open-icon.png"></a>
+                <a href="#" id="brush" onclick="ChangeTool('brush')"><img src="pinceau.png"></a>
+                <a href="#" id="ligne" onclick="ChangeTool('ligne')"><img src="ligne.png"></a>
+                <a href="#" id="rectangle" onclick="ChangeTool('rectangle')"><img src="rectangle.png"></a>
+                <a href="#" id="cercle" onclick="ChangeTool('cercle')"><img src="cercle.png"></a>
+                <a href="#" id="polygone" onclick="ChangeTool('polygone')"><img src="polygone.png"></a>
+            </div><br>
+              </div>
+    
+    </div>
+    <div id="bundleRight">
+    <div class="controls">
         <div class="controls_btns">
             <button id="jsMode">Peinture</button>
             <button id="jsSave">Sauver</button>
@@ -27,19 +42,12 @@
         <div class="controls_couleur jsColor"style="background-color:blue"></div>
         <div class="controls_couleur jsColor"style="background-color:rgb(95, 26, 234)"></div>
         </div>
+        
     </div>
-<script src=app.js></script>
 
-    <div class="barre">
- 
-        <div class="outils">
-            <a class="selected" href="#" id="open" onclick="OpenImage()"><img src="open-icon.png"></a>
-            <a href="#" id="brush" onclick="ChangeTool('brush')"><img src="pinceau.png"></a>
-            <a href="#" id="ligne" onclick="ChangeTool('ligne')"><img src="ligne.png"></a>
-            <a href="#" id="rectangle" onclick="ChangeTool('rectangle')"><img src="rectangle.png"></a>
-            <a href="#" id="cercle" onclick="ChangeTool('cercle')"><img src="cercle.png"></a>
-            <a href="#" id="polygone" onclick="ChangeTool('polygone')"><img src="polygone.png"></a>
-        </div><br>
-    <script src=app.js></script>
-</body>
-</html> 
+      </div>
+
+</div>  
+<script src="app.js"></script>
+
+</html>
