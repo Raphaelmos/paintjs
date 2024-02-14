@@ -1,4 +1,4 @@
-#### Web Application Paint
+# Web Application Paint
 
 To access the paint online use the following link : 
 
@@ -27,7 +27,7 @@ The start objectives of this project :
    - Have a whole menu for "Help" on how to use the application
 
 
-# French
+## French
 
 Déplacement dans nouveau répertoire pour paint en js
 
