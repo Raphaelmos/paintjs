@@ -1,6 +1,6 @@
 # Web Application Paint
 
-To access the paint online use the following link : 
+To access the paint online use the following link : https://raphaelmos.github.io/paintjsonline
 
 You can also download it.
 
