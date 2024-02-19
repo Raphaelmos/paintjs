@@ -26,7 +26,7 @@ The start objectives of this project :
    - Open a existing image
    - Have a whole menu for "Help" on how to use the application
 
-
+## *Footnote : No deployment with this repository, only the other one is used for it while this one is on testing side*
 ## French
 
 Déplacement dans nouveau répertoire pour paint en js
