@@ -226,3 +226,27 @@ function handleRangeChange(event){
     const rangeValue = event.target.value;
     ctx.lineWidth = rangeValue;
 }
+
+function OpenImage(){
+    let img = new Image();
+    // Once the image is loaded clear the canvas and draw it
+    img.onload = function(){
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+        ctx.drawImage(img,0,0);
+    }
+    img.src = 'image.png';
+
+}
+const openFileBtn = document.getElementById('open-file');
+fileInput.addEventListener('change', () => {
+
+  const file = fileInput.files[0];
+
+  const img = new Image();
+  img.onload = () => {
+    ctx.drawImage(img, 0, 0);
+  }
+
+  img.src = URL.createObjectURL(file);
+
+})
